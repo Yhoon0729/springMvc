@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-index.jsp  ${msg }
+index.jsp  ${msg }  ${auth }
 
 	<ul>
 		<li>Hello====</li>
@@ -42,6 +42,43 @@ index.jsp  ${msg }
 		<li><a href="<%=request.getContextPath() %>/folders/1/2/3/files">
 		/files/1/2/3/files</a>:
 			@RequestMapping, FileController.list()</li>
+	</ul>
+	
+	<ul>
+		<li>요청 파라미터 처리:</li>
+		<li><a href="<%=request.getContextPath() %>/event/detail?id=1">
+			event/detail?id=1</a>:
+			HttpServletRequest를 이용한 파라미터 구하기, EventController.detail()</li>
+		<li><a href="<%=request.getContextPath() %>/event/detail2?id=1">
+			event/detail2?id=1</a>:
+			@RequestParam을 이용한 파라미터 구하기, EventController.detail2()</li>
+		<li><a href="<%=request.getContextPath() %>/event/detail2">
+			event/detail2</a>:
+			@RequestParam 필수 파라미터 400 에러, EventController.detail2()</li>
+		<li><a href="<%=request.getContextPath() %>/search">search</a>:
+			@RequestParam 필수 아님 설정, SearchController.search()</li>
+	</ul>
+	
+	<ul>
+		<li>커맨트 객체, @ModelAttribute:</li>
+		<li><a href="<%=request.getContextPath() %>/member/regist">
+			/member/regist</a>:
+			커맨드 객체, @ModelAttribut로 커맨드 객체 이름 지정, RegistrationController</li>
+		<li><a href="<%=request.getContextPath() %>/acl/list">/acl/list</a>:
+			커맨드 객체 리스트 처리, AclController</li>
+		<li><a href="<%=request.getContextPath() %>/auth/login">/auth/login</a>:
+			LoginController</li>
+	</ul>
+	
+	<ul>
+		<li><a href="<%=request.getContextPath() %>/json/list">/json/list</a>
+			: json , JsonController</li>
+		<li><a href="<%=request.getContextPath() %>/json/map">/json/map</a>
+			: json , JsonController</li>
+		<li><a href="<%=request.getContextPath() %>/rest/list">/rest/list</a>
+			: json , RestJsonController</li>
+		<li><a href="<%=request.getContextPath() %>/rest/map">/rest/map</a>
+			: json , RestJsonController</li>
 	</ul>
 </body>
 </html>

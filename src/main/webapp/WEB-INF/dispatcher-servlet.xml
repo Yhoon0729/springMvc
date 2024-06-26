@@ -9,23 +9,46 @@
              http://www.springframework.org/schema/mvc/spring-mvc.xsd
              http://www.springframework.org/schema/context
              http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<context:component-scan base-package="controller, service" />
+
+	<context:component-scan
+		base-package="controller, service" />
 	<context:annotation-config />
-	
+	<mvc:view-controller path="/index"
+		view-name="index" />
 	<mvc:annotation-driven />
 	<bean id="viewResolver"
-	class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<!--  
-	<bean class="controller.HelloController" />
-	<bean class="controller.HelloController2" />
-	<bean class="controller.EventController" />
-	<bean class="controller.RegistrationController" />
-	<bean class="controller.MemberController" />
-	-->
-	
+
+	<!-- <bean class="controller.HelloController" /> <bean class="controller.HelloController2" 
+		/> <bean class="controller.EventController" /> <bean class="controller.RegistrationController" 
+		/> <bean class="controller.MemberController" /> -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.error</value>
+			</list>
+		</property>
+
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/members/m2" />
+			<mvc:mapping path="/files/**" />
+			<ref bean="login" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/acl/**" />
+			<bean class="service.AdminInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="login" class="service.LoginInterceptor" />
 </beans>

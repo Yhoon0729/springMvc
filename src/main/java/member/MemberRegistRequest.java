@@ -2,6 +2,8 @@ package member;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberRegistRequest {
 	private String email;
 	private String name;
@@ -10,6 +12,17 @@ public class MemberRegistRequest {
 	private boolean allowNoti;
 	private Address address;
 	private Date birthday; // setter/getter toString
+	
+	public boolean hasPassword() {
+		return password != null && password.trim().length()>0;
+	}
+	
+	public boolean isSamePasswordConfirmPassword() {
+		if(password == null || confirmPassword == null) {
+			return false;
+		}
+		return password.equals(confirmPassword);
+	}
 	
 	public String getEmail() {
 		return email;
@@ -50,6 +63,7 @@ public class MemberRegistRequest {
 	public Date getBirthday() {
 		return birthday;
 	}
+	@DateTimeFormat(pattern = "yyyyMMdd")
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
@@ -59,4 +73,6 @@ public class MemberRegistRequest {
 		return "MemberRegistRequest [email=" + email + ", name=" + name + ", password=" + password
 				+ ", confirmPassword=" + confirmPassword + ", allowNoti=" + allowNoti + ", birthday=" + birthday + "]";
 	}
+	
+
 }

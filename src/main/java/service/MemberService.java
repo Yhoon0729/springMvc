@@ -29,4 +29,13 @@ public class MemberService {
 	public MemberInfo getMemberInfo(String memberId) {
 		return memberMap.get(memberId);
 	}
+
+	public MemberInfo getMemberInfoByEmail(String email) {
+		for(MemberInfo mi : memberMap.values()) {
+			if(mi.getEmail().equals(email)) {
+				return mi;
+			}
+		}
+		return null;
+	}
 }
